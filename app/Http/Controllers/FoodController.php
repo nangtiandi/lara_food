@@ -6,9 +6,13 @@ use App\Models\Category;
 use App\Models\Food;
 use App\Http\Requests\StoreFoodRequest;
 use App\Http\Requests\UpdateFoodRequest;
+use App\Models\Order;
 
 class FoodController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -108,4 +112,14 @@ class FoodController extends Controller
 
         return redirect()->back()->with('success','Success Deleted');
     }
+
+    public function order(){
+        $statusCount = config('custom.order_status');
+        $status = array_flip($statusCount);
+        $orders = Order::whereIn('status',[1,2])->get();
+
+        return view('admin.order',compact('orders','status'));
+    }
+
+
 }

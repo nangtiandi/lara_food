@@ -1,85 +1,61 @@
 @extends('layouts.master')
 @section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+    <div class="content-wrapper">
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <!-- /.col-md-6 -->
+        <!-- Main content -->
+        <div class="content my-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Order List Table</h3>
+                                <a href="{{route('food.create')}}" class="btn btn-secondary" style="float: right">Create</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                @if(session('success'))
+                                    <div class="alert alert-success">{{session('success')}}</div>
+                                @endif
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead class="text-center">
+                                    <tr>
+                                        <th>Food Name</th>
+                                        <th>Table Name</th>
+                                        <th>Status</th>
+                                        <th>Ordered At</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                    @forelse ($orders as $order)
+                                        <tr>
+                                            <td>{{$order->food->name}}</td>
+                                            <td>{{$order->table->table_name}}</td>
+                                            <td><span class="badge bg-info">{{$status[$order->status]}}</span></td>
+                                            <td>
+                                                <span>{{$order->created_at->format('Y m d')}} || {{$order->created_at->format('h i a')}}</span>
+                                            </td>
+                                            <td>
+                                                <a href="/order/{{$order->id}}/approve" class="btn btn-light">Approve</a>
+                                                <a href="/order/{{$order->id}}/cancel" class="btn btn-light">Cancel</a>
+                                                <a href="/order/{{$order->id}}/ready" class="btn btn-light">Ready</a>
+                                                <a href="/order/{{$order->id}}/done" class="btn btn-light">Submit</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4">The food plate is empty</td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
 @endsection

@@ -15,19 +15,19 @@ class TableTableSeeder extends Seeder
     public function run()
     {
         DB::table('tables')->insert([
-            'table_name' => '1'
+            'table_name' => 'VIP-1'
         ]);
         DB::table('tables')->insert([
-            'table_name' => '2'
+            'table_name' => 'VIP-2'
         ]);
         DB::table('tables')->insert([
-            'table_name' => '3'
+            'table_name' => 'VIP-3'
         ]);
         DB::table('tables')->insert([
-            'table_name' => '4'
+            'table_name' => 'VIP-4'
         ]);
         DB::table('tables')->insert([
-            'table_name' => '5'
+            'table_name' => 'VIP-5'
         ]);
     
     }

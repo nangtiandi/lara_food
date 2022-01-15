@@ -33,11 +33,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{route('food.index')}}" class="nav-link">Home</a>
+        <a href="{{url('/')}}" class="nav-link">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
@@ -55,7 +55,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary "> <!--elevation-4 -->
     <!-- Brand Logo -->
     <a href="{{route('food.index')}}" class="brand-link">
-      <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Food Panda</span>
     </a>
 
@@ -64,22 +63,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('http://placeimg.com/640/480/people')}}" class="" alt="User Image" style="width: 40;height:40;border-radius:50%">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
+          <a href="" class="d-block">{{Auth::user()->name}}</a>
         </div>
       </div>
 
@@ -92,17 +79,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/food')}}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{url('category/create')}}" class="nav-link {{Request::segment(1) == 'category' ? 'active' : ''}}">
+                  <i class="fas fa-plus-circle"></i>
+                    <p>Category Manage</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/food')}}" class="nav-link {{Request::segment(1) == 'food' ? 'active' : ''}}">
+                  <i class="fas fa-plus-circle"></i>
                   <p>Foods Manage</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('order')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="{{route('admin.order')}}" class="nav-link {{Request::segment(1) == 'order' ? 'active' : ''}}">
+                  <i class="fas fa-plus-circle"></i>
                   <p>Orders Manage</p>
                 </a>
               </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.orderList')}}" class="nav-link {{Request::segment(1) == 'orderList' ? 'active' : ''}}">
+                        <i class="fas fa-plus-circle"></i>
+                        <p>Ready Orders</p>
+                    </a>
+                </li>
               <li class="nav-item">
                 <form action=" {{route('logout')}} " method="POST">
                   @csrf
@@ -132,9 +131,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Thank To You!
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022-1-10 <a href="https://github.com/nangtiandi">Github.com</a>.</strong> All rights reserved.
   </footer>
-</div>
+{{--</div>--}}
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
@@ -154,13 +153,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
